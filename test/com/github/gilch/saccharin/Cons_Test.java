@@ -11,41 +11,49 @@ public class Cons_Test {
 
     @Test
     public void testPush() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testPop() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testFlip() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testToString() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testEquals() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testHashCode() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testCdr() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testCar() throws Exception {
+        fail();
 
     }
 }

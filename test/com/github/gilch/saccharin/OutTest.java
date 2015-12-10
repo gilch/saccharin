@@ -11,16 +11,19 @@ public class OutTest {
 
     @Test
     public void testToString() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testHashCode() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testEquals() throws Exception {
+        fail();
 
     }
 }

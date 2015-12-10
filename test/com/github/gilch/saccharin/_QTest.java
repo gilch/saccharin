@@ -11,21 +11,25 @@ public class _QTest {
 
     @Test
     public void testNext() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testAhead() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testLast() throws Exception {
+        fail();
 
     }
 
     @Test
     public void testAnd() throws Exception {
+        fail();
 
     }
 }

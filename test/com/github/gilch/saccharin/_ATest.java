@@ -11,11 +11,13 @@ public class _ATest {
 
     @Test
     public void test_() throws Exception {
+        fail();
 
     }
 
     @Test
     public void test_1() throws Exception {
+        fail();
 
     }
 }
