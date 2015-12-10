@@ -27,7 +27,7 @@ import static com.github.gilch.saccharin.Literal._;
 import static com.github.gilch.saccharin.Literal._a;
 
 /**
- * Created by ME on 12/9/2015.
+ * Created by gilch on 12/9/2015.
  */
 public final class Lazy {
     private Lazy() {
