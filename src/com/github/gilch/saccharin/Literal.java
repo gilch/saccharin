@@ -49,6 +49,7 @@ import static com.github.gilch.saccharin.BuiltIn.*;
  * @author Matthew Odendahl
  */
 public final class Literal {
+
     private Literal() {
         throw new UnsupportedOperationException();
     }
@@ -139,8 +140,11 @@ public final class Literal {
     /**
      * Dynamic array fake literal. Unlike normal arrays, dynamic arrays
      * can be resized, but retain array-like performance most of the time.
-     * This method will cause issues when creating an array with unchecked generic
+     * This method will cause issues when creating a varargs array with unchecked generic
      * elements--Use the single element method with the {@code ._(e)} chain syntax instead.
+     *
+     * For example, use {@code _A<Thru<Float>> foo = _a(_(1f))._(_(2f));}
+     * instead of {@code _A<Thru<Float>> foo = _a(_(1f),_(2f));}.
      *
      * @param e -
      *          an Array of type E. Multiple arguments will be converted
@@ -148,6 +152,7 @@ public final class Literal {
      * @return a dynamically-sizable {@link ArrayList} with the provided
      * elements in the order given.
      */
+    //@SafeVarargs
     public static <E> _A<E> _a(final E... e) {
         return new _A<E>(_t(e));
     }
@@ -209,6 +214,7 @@ public final class Literal {
      *          Multiple arguments will be converted to an array automatically.
      * @return An ArrayDeque with the provided elements.
      */
+    //@SafeVarargs
     public static <E> _Q<E> _q(final E... e) {
         final _Q<E> out = new _Q<E>(e.length);
         Collections.addAll(out, e);
@@ -247,8 +253,19 @@ public final class Literal {
      * Arrays#asList}.
      * It's still an array, with the usual limitations.
      */
+    //@SafeVarargs
     public static <E> List<E> _t(final E... e) {
         return Arrays.asList(e);
+    }
+
+    /**
+     * An the same as _f(). A fixed-length list of length zero is immutable,
+     * since there's nothing to mutate.
+     * @param <E>
+     * @return
+     */
+    public static <E> List<E> _t(){
+        return Collections.emptyList();
     }
 
     /**
@@ -268,6 +285,7 @@ public final class Literal {
      * The returned list is itself immutable, but may contain references to
      * mutable elements.
      */
+    //@SafeVarargs
     public static <E> List<E> _f(final E... e) {
         return Collections.unmodifiableList(Arrays.asList(e));
     }
@@ -304,6 +322,7 @@ public final class Literal {
      *          to an array automatically.
      * @return A LinkedHashSet with the provided elements.
      */
+    //@SafeVarargs
     public static <E> LinkedHashSet<E> _s(final E... e) {
         return new LinkedHashSet<E>(_t(e));
     }
@@ -388,6 +407,7 @@ public final class Literal {
      * @return the arguments as an array.
      */
     public static <E> E[] items(final E... e) {
+        // NB. varargs are NOT safe here, since the return is an array.
         return e;
     }
 
@@ -858,10 +878,10 @@ public final class Literal {
          * some methods. Access to the backing map allows the use of any extra
          * methods not in the interface.
          */
-        public final T map;
+        public final T _;
 
         private _X(final T m) {
-            map = m;
+            _ = m;
         }
 
         // implementations of map fake literals
@@ -890,7 +910,7 @@ public final class Literal {
          * @return this
          */
         public _X<K, V, T> _(final K key, final V value) {
-            map.put(key, value);
+            _.put(key, value);
             return this;
         }
 
@@ -904,19 +924,19 @@ public final class Literal {
          */
         public _X<K, V, T> and(final Iterator<? extends _<? extends K, ? extends V>> pairs) {
             for (final _<? extends K, ? extends V> pair : in(pairs)) {
-                map.put(pair.head, pair.tail);
+                _.put(pair.head, pair.tail);
             }
             return this;
         }
 
         @Override
         public Set<Entry<K, V>> entrySet() {
-            return map.entrySet();
+            return _.entrySet();
         }
 
         @Override
         public V put(final K key, final V value) {
-            return map.put(key, value);
+            return _.put(key, value);
         }
 
         /**
@@ -924,7 +944,7 @@ public final class Literal {
          */
         @Override
         public boolean containsKey(final Object key) {
-            return map.containsKey(key);
+            return _.containsKey(key);
         }
 
         /**
@@ -932,7 +952,7 @@ public final class Literal {
          */
         @Override
         public boolean containsValue(final Object value) {
-            return map.containsValue(value);
+            return _.containsValue(value);
         }
 
         /**
@@ -940,7 +960,7 @@ public final class Literal {
          */
         @Override
         public V get(final Object key) {
-            return map.get(key);
+            return _.get(key);
         }
 
         /**
@@ -948,7 +968,7 @@ public final class Literal {
          */
         @Override
         public V remove(final Object key) {
-            return map.remove(key);
+            return _.remove(key);
         }
 
     }
