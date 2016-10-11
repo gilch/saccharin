@@ -211,7 +211,7 @@ public class LiteralTest {
         _X<String, String, TreeMap<String, String>> footoo =
                 _x(new TreeMap<String, String>())._("foo", "bar")._("too", "bar");
         TreeMap<String, String> footree = footoo._;
-        // you can even use an preexisting map and wrap it again.
+        // you can even use a preexisting map and wrap it again.
         _X<String, String, TreeMap<String, String>> fooyou = _x(footree)._("tree", "bar");
     }
 
